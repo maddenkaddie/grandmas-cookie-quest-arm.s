@@ -1,8 +1,11 @@
 .global main
 
 @ Kaddie Madden
-@ smuid: 47291261
+@ ARM Assembly Text Adveture Game
+@ Deliver the cookies to Grandma while surviving the forest.
 
+
+@ Game introduction and player name input
 main:
         MOV r4, #3      @ Lives = 3
 
@@ -14,6 +17,7 @@ main:
         LDR r1, =playerName
         BL scanf
 
+@ Enchanted Forest - first story choice
 enchantedForest:
         LDR r0, =forestFork
         LDR r1, =playerName
@@ -40,12 +44,14 @@ enchantedForest:
 
         B enchantedForest
 
+@ Godzilla Shortcut - easy win
 godzillaPath:
         LDR r0, =godzillaText
         BL printf
 
         B successEnding
 
+@ Candy Land path
 candyLand:
         LDR r0, =candyForkText
         BL printf
@@ -81,6 +87,7 @@ gumdropPath:
 
         B seagullZone
 
+@ Fire Swamp path
 fireSwamp:
         LDR r0, =swampForkText
         BL printf
@@ -117,6 +124,7 @@ rodentFight:
 
         B seagullZone
 
+@ Lost one life and display remaing lives
 loseLife:
         PUSH {lr}
 
@@ -136,6 +144,7 @@ loseLifeGameOver:
         
         B gameOver
 
+@ Critical hit -two lives
 loseTwoLives:
         PUSH {lr}
 
@@ -155,6 +164,7 @@ loseTwoGameOver:
 
         B gameOver
 
+@ Seagull critical area
 seagullZone:
         LDR r0, =seagullForkText
         BL printf
@@ -189,6 +199,7 @@ bombSeagull:
 
         B finalFork
 
+@ Last Task to complete
 finalFork:
         LDR r0, =finalForkText
         BL printf
@@ -223,6 +234,7 @@ walkCarefully:
 
         B successEnding
 
+@ Ending logic based on lives remaining
 successEnding:
         CMP r4, #3
         BEQ perfectEnding
@@ -262,6 +274,7 @@ gameOver:
 
         B endProgram
 
+@ Replay/Quit menu
 endProgram:
         LDR r0, =playAgainText
         BL printf
@@ -269,7 +282,7 @@ endProgram:
         LDR r0, =choiceFormat
         LDR r1, =choice
         BL scanf
- LDR r1, =choice
+        LDR r1, =choice
         LDRB r1, [r1]
 
         CMP r1, #'1'
